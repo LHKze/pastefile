@@ -1,5 +1,6 @@
 # coding=utf-8
 import os
+import logging
 from logging import StreamHandler
 
 DEBUG = True
