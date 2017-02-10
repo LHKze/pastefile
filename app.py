@@ -20,7 +20,10 @@ app.wsgi_app = SharedDataMiddleware(app.wsgi_app, {
 mako.init_app(app)
 db.init_app(app)
 
-
+with app.app_context():
+    db.create_all()
+	
+	
 @app.route('/r/<img_hash>')
 def rsize(img_hash):
     w = request.args['w']
