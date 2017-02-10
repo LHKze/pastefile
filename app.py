@@ -7,6 +7,8 @@ from flask import abort, Flask, request, jsonify, redirect, send_file
 from ext import db, mako, render_template
 from models import PasteFile
 from utils import get_file_path, humanize_bytes
+from flask_script import Manager, Shell
+from flask_migrate import Migrate, MigrateCommand
 
 ONE_MONTH = 60 * 60 * 24 * 30
 
@@ -19,9 +21,24 @@ app.wsgi_app = SharedDataMiddleware(app.wsgi_app, {
 
 mako.init_app(app)
 db.init_app(app)
+manager = Manager(app)
+migrate = Migrate(app, db)
 
-with app.app_context():
-    db.create_all()
+def make_shell_context():
+    return dict(app=app, db=db)
+
+manager.add_command("shell", Shell(make_context=make_shell_context))
+manager.add_command('db', MigrateCommand)
+
+@manager.command
+def deploy():
+    """Run deployment tasks."""
+    from flask_migrate import upgrade
+
+    # migrate database to latest revision
+    upgrade()
+	
+#---------------------------------------------------
 	
 	
 @app.route('/r/<img_hash>')
@@ -129,4 +146,4 @@ def s(symlink):
 
 
 if __name__ == '__main__':
-    app.run()
+    manager.run()
