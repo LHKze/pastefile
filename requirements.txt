@@ -3,7 +3,7 @@ cropresize2==0.1.9
 Flask==0.11.1
 Flask-SQLAlchemy==2.1
 Flask-WTF==0.13.1
-
+Flask-mako==0.4
 gunicorn==19.6.0
 Pillow==3.3.0
 Pygments==2.1.3
