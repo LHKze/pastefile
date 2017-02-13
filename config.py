@@ -1,7 +1,7 @@
 # coding=utf-8
 import os
 
-
+UPLOAD_FOLDER = '/tmp/permdir'
 
 
 
@@ -10,6 +10,8 @@ import os
 
 
 class HerokuConfig:
+	
+
     @classmethod
     def init_app(cls, app):
         

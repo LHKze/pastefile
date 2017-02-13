@@ -15,7 +15,6 @@ ONE_MONTH = 60 * 60 * 24 * 30
 app = Flask(__name__)
 app.config.from_object(config[heroku])
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
-app.config['UPLOAD_FOLDER'] = '/tmp/permdir'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] =  False
 config['heroku'].init_app()
 
