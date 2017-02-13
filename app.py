@@ -14,6 +14,7 @@ ONE_MONTH = 60 * 60 * 24 * 30
 
 app = Flask(__name__)
 app.config.from_object(config[heroku])
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 config['heroku'].init_app()
 
 app.wsgi_app = SharedDataMiddleware(app.wsgi_app, {
