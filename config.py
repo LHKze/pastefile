@@ -10,11 +10,6 @@ import os
 
 
 class HerokuConfig:
-	DEBUG = True
-	
-    UPLOAD_FOLDER = '/tmp/permdir'
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
-
     @classmethod
     def init_app(cls, app):
         
