@@ -16,7 +16,7 @@ app = Flask(__name__)
 app.config.from_object(config['heroku'])
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] =  False
-config['heroku'].init_app()
+config['heroku'].init_app(app)
 
 app.wsgi_app = SharedDataMiddleware(app.wsgi_app, {
     '/i/': get_file_path()
