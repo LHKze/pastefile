@@ -3,7 +3,7 @@ import os
 
 from werkzeug import SharedDataMiddleware
 from flask import abort, Flask, request, jsonify, redirect, send_file
-
+from config import config
 from ext import db, mako, render_template
 from models import PasteFile
 from utils import get_file_path, humanize_bytes
@@ -13,7 +13,8 @@ from flask_migrate import Migrate, MigrateCommand
 ONE_MONTH = 60 * 60 * 24 * 30
 
 app = Flask(__name__)
-app.config.from_object('config')
+app.config.from_object(config[heroku])
+config['heroku'].init_app()
 
 app.wsgi_app = SharedDataMiddleware(app.wsgi_app, {
     '/i/': get_file_path()
